@@ -1,2 +1,2 @@
-# GDPR-Server
-General Data Protection Regulation 서버 구현하기
+# economic statistics OPEN API
+economic statistics 서버 구현하기
