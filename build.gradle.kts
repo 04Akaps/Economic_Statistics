@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "2.0.21"
 }
 
-group = "org.example"
+group = "org.economic.statistics"
 version = "1.0-SNAPSHOT"
 
 repositories {
