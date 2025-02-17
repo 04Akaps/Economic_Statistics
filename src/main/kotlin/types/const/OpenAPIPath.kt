@@ -10,3 +10,6 @@ object OpenAPIPaths {
     const val STATISTIC_KEY_LIST = "${BASE_URL}KeyStatisticList"
     const val STATISTIC_META = "${BASE_URL}StatisticMeta"
 }
+
+
+const val SUCCESS = "SUCCESS"

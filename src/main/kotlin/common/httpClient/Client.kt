@@ -2,6 +2,8 @@ package org.economic.statistics.common.httpClient
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import org.economic.statistics.common.exception.CustomException
+import org.economic.statistics.common.exception.ErrorCode
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,13 +20,13 @@ class Client(private val httpClient: OkHttpClient) {
 
         // TODO Custom Exception
         if (!response.isSuccessful) {
-            throw Exception(response.message)
+            throw CustomException(ErrorCode.FailedToGetCall, " uri : $uri")
         }
 
         response.body?.let {
             return it.string()
         } ?: run {
-            throw Exception(response.message)
+            throw CustomException(ErrorCode.BodyIsNull, " uri : $uri")
         }
     }
 }
