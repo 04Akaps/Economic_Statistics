@@ -15,4 +15,6 @@ object JsonUtil {
     fun <T> decodeFromJson(jsonString: String, serializer: KSerializer<T>): T {
         return json.decodeFromString(serializer, jsonString)
     }
+
+    fun parseToJsonElement(jsonString: String) = json.parseToJsonElement(jsonString)
 }

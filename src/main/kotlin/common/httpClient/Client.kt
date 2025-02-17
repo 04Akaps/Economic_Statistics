@@ -17,8 +17,6 @@ class Client(private val httpClient: OkHttpClient) {
 
         val response = httpClient.newCall(request).execute()
 
-
-        // TODO Custom Exception
         if (!response.isSuccessful) {
             throw CustomException(ErrorCode.FailedToGetCall, " uri : $uri")
         }

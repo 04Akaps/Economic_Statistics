@@ -5,7 +5,7 @@ import org.economic.statistics.custom.interfaces.CodeInterface
 
 class CustomException(
     private val codeInterface: CodeInterface,
-    additionalMessage: String
+    additionalMessage: String = ""
 ) : RuntimeException(
     "${codeInterface.message}${additionalMessage}"
 ) {

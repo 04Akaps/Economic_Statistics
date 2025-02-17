@@ -3,10 +3,10 @@ package org.economic.statistics.domains.language.controller
 import org.economic.statistics.domains.language.service.LanguageService
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.economic.statistics.common.logger.Logging
-import org.slf4j.Logger
+import org.economic.statistics.domains.language.model.StatisticsLanguageSuccess
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.economic.statistics.types.global.Result
 
 // https://ecos.bok.or.kr/api/#/DevGuide/DevSpeciflcation
 @RestController
@@ -18,8 +18,8 @@ class LanguageController (private val languageService: LanguageService) {
         @RequestParam(value = "page", required = true) page: Long,
         @RequestParam(value = "size", required = true) size: Long,
         @RequestParam(value = "lang", required = true) lang: String
-    )  {
-        languageService.statisticsLanguageDictionary(lang,page,size)
+    )  : Result<StatisticsLanguageSuccess> {
+       return languageService.statisticsLanguageDictionary(lang,page,size)
     }
 
 }
