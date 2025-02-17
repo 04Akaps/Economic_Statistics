@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 class OpenAPIPathBuilder(
     private val authKey: String,
 ) {
-    fun buildURL(endPoint: String, page: Long, size: Long, args: String?): String {
+    fun buildURL(endPoint: String, page: Long, size: Long, args: String? = null): String {
         val uri  = "$endPoint/${authKey}/json/kr/${page}/${size}"
 
         return when (args) {
