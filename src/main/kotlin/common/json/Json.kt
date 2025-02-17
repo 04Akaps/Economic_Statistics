@@ -4,7 +4,10 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.json.Json
 
 object JsonUtil {
-    private val json = Json { prettyPrint = true }
+    private val json = Json {
+        prettyPrint = true
+        ignoreUnknownKeys = true
+    }
 
     // 객체 -> JSON 문자열 변환
     fun <T> encodeToJson(data: T, serializer: KSerializer<T>): String {

@@ -9,5 +9,8 @@ enum class ErrorCode(
     FailedToFuncInvoke(-2, "Failed to invoke function"),
     BodyIsNull(-1, "response body is null"),
     FailedToGetCall(0, "Failed to get call"),
-    FailedToPostCall(1, "Failed to post call");
+    FailedToPostCall(1, "Failed to post call"),
+
+    NoLanguageData(2, "no data in api call"),
+    FailedToObjectMapping(3, "Failed to object mapping")
 }

@@ -3,7 +3,7 @@ package org.economic.statistics.domains.language.controller
 import org.economic.statistics.domains.language.service.LanguageService
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import org.economic.statistics.domains.language.model.StatisticsLanguageSuccess
+import org.economic.statistics.domains.language.model.SuccessAPIResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.economic.statistics.types.global.Result
@@ -18,7 +18,7 @@ class LanguageController (private val languageService: LanguageService) {
         @RequestParam(value = "page", required = true) page: Long,
         @RequestParam(value = "size", required = true) size: Long,
         @RequestParam(value = "lang", required = true) lang: String
-    )  : Result<StatisticsLanguageSuccess> {
+    )  : Result<SuccessAPIResult> {
        return languageService.statisticsLanguageDictionary(lang,page,size)
     }
 

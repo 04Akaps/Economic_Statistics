@@ -18,8 +18,35 @@ data class FailedResponse(
     val message: String
 )
 
+@Serializable
+data class SuccessAPIResult(
+    @SerialName("StatisticWord")
+    val statisticWord: StatisticWordData
+)
 
-data class StatisticsLanguageSuccess(
-    @SerialName("testval")
-    val testval : String
+@Serializable
+data class StatisticWordData(
+    @SerialName("list_total_count")
+    val listTotalCount: Int,
+
+    @SerialName("row")
+    val row: List<WordDetail>
+)
+
+@Serializable
+data class WordDetail(
+    @SerialName("WORD")
+    val word: String,
+
+    @SerialName("CONTENT")
+    val content: String
+)
+
+
+data class StatisticsLanguageResponse(
+    @SerialName("message")
+    val message : String,
+
+    @SerialName("word")
+    val word : String
 )
