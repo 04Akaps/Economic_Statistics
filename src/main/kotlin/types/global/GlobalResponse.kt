@@ -1,6 +1,5 @@
 package org.economic.statistics.types.global
 
-import org.economic.statistics.types.const.SUCCESS
 import org.springframework.http.HttpStatus
 
 object GlobalResponse {
@@ -22,3 +21,6 @@ data class Result<T>(
     val message: String?,
     val result: T?
 )
+
+
+const val SUCCESS = "SUCCESS"
