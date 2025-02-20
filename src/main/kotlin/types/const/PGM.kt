@@ -9,5 +9,3 @@ object PGMList{
         pgmList[t.lowercase()]?.let { return it } ?: run { return false }
     }
 }
-
-const val TOSS = "toss"

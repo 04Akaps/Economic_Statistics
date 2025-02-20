@@ -18,17 +18,7 @@ class Client(private val httpClient: OkHttpClient) {
         headers.forEach { (key, value) -> requestBuilder.addHeader(key, value) }
         val request = requestBuilder.build()
 
-        val response = httpClient.newCall(request).execute()
-
-        if (!response.isSuccessful) {
-            throw CustomException(ErrorCode.FailedToGetCall, " uri : $uri")
-        }
-
-        response.body?.let {
-            return it.string()
-        } ?: run {
-            throw CustomException(ErrorCode.BodyIsNull, " uri : $uri")
-        }
+        return resultHandler(httpClient.newCall(request).execute())
     }
 
     fun POST(uri: String, headers: Map<String, String> = emptyMap(), body : String): String {
@@ -38,21 +28,21 @@ class Client(private val httpClient: OkHttpClient) {
             .url(uri)
             .post(requestBody)
 
-        // 헤더 추가
         headers.forEach { (key, value) ->
             requestBuilder.addHeader(key, value)
         }
 
-        val response = httpClient.newCall(requestBuilder.build()).execute()
+        return resultHandler(httpClient.newCall(requestBuilder.build()).execute())
+    }
 
-        if (!response.isSuccessful) {
-            throw CustomException(ErrorCode.FailedToPostCall, " uri : $uri")
-        }
 
-        response.body?.let {
-            return it.string()
-        } ?: run {
-            throw CustomException(ErrorCode.BodyIsNull, " uri : $uri")
+    private fun resultHandler(response : okhttp3.Response) : String {
+        response.use {
+            if (!it.isSuccessful) {
+                val msg = " HTTP ${it.code}: ${it.body?.string() ?: "Unknown error"}"
+                throw CustomException(ErrorCode.FailedToPostCall, msg)
+            }
+            return it.body?.string() ?: throw CustomException(ErrorCode.BodyIsNull)
         }
     }
 }

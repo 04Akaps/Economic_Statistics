@@ -6,8 +6,17 @@ import kotlinx.serialization.Serializable
 data class PaymentRequest(
     val amount: Int,
     val orderId: String,
-    val orderName: String,
-    val customerEmail: String,
-    val customerName: String,
+    val paymentKey: String,
+
+    val orderName: String? = null,
+    val customerEmail: String? = null,
+    val customerName: String? = null
+)
+
+
+@Serializable
+data class ConfirmBody(
+    val orderId : String,
+    val amount: Int,
     val paymentKey: String
 )

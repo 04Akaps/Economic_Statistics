@@ -4,7 +4,7 @@ import org.economic.statistics.custom.interfaces.CodeInterface
 
 enum class ErrorCode(
     override val code : Int,
-    override val message : String
+    override var message : String
 ) : CodeInterface {
     FailedToGetCall(-101, "Failed to get call"),
     FailedToPostCall(-100, "Failed to post call"),

@@ -5,7 +5,7 @@ import org.economic.statistics.custom.interfaces.CodeInterface
 
 class CustomException(
     private val codeInterface: CodeInterface,
-    additionalMessage: String = ""
+    private val additionalMessage: String? = null,
 ) : RuntimeException(
     "${codeInterface.message}${additionalMessage}"
 ) {
@@ -14,7 +14,13 @@ class CustomException(
     }
 
     fun getCodeInterface(): CodeInterface {
-        return this.codeInterface
+        var codeInterface = codeInterface
+
+        if (additionalMessage != null) {
+            codeInterface.message += additionalMessage.toString()
+        }
+
+        return codeInterface
     }
 
     companion object {

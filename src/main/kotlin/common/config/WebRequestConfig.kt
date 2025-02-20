@@ -1,6 +1,7 @@
 package org.economic.statistics.common.config
 
 import io.micrometer.common.lang.Nullable
+import jakarta.servlet.http.HttpServletRequest
 import org.economic.statistics.common.exception.CustomException
 import org.economic.statistics.common.exception.ErrorCode
 import org.economic.statistics.custom.interfaces.PGMKeyRequest
@@ -27,15 +28,23 @@ class WebRequestConfig: HandlerMethodArgumentResolver {
     ): Any? {
 
         if (parameter.hasParameterAnnotation(PGMKeyRequest::class.java)) {
-            webRequest.getParameter(Objects.requireNonNull(parameter.parameterName))?.let {
-                if (!PGMList.isValidPGMType(it)) {
-                    throw CustomException(ErrorCode.NotSupportedPGMKeyRequest, it)
-                }
+            val request: HttpServletRequest = webRequest.getNativeRequest(HttpServletRequest::class.java)
 
-                return it
-            } ?: run {
-                throw CustomException(ErrorCode.PGMKeyRequired)
+            val path = request.requestURI
+            val pathSegments = path.split("/")
+
+            val pgmIndex = pathSegments.indexOf("confirm-pay") + 1
+            if (pgmIndex <= 0 || pgmIndex >= pathSegments.size) {
+                throw CustomException(ErrorCode.PGMKeyRequired) // PGM 값이 없으면 예외 발생
             }
+
+            val pgm = pathSegments[pgmIndex]
+
+            if (!PGMList.isValidPGMType(pgm)) {
+                throw CustomException(ErrorCode.NotSupportedPGMKeyRequest, pgm)
+            }
+
+            return pgm
         }
 
         return null
