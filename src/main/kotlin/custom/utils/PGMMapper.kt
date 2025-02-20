@@ -13,7 +13,7 @@ class PGMMapper(
 ) {
     val confirmPay: Map<String, (String) -> Unit> = PGMList.pgmList.keys.associateWith { key ->
         when (key) {
-            TOSS -> { body ->  tossPGMService.confirmTossPay(body) }
+            TOSS -> { body ->  tossPGMService.paymentRequest(body) }
             else -> throw CustomException(ErrorCode.InvalidFunctionPGMKeyMapper)
         }
     }
