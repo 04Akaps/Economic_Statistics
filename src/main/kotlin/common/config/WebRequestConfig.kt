@@ -1,6 +1,8 @@
 package org.economic.statistics.common.config
 
 import io.micrometer.common.lang.Nullable
+import org.economic.statistics.common.exception.CustomException
+import org.economic.statistics.common.exception.ErrorCode
 import org.economic.statistics.custom.interfaces.PGMKeyRequest
 import org.economic.statistics.types.const.PGMList
 import org.springframework.core.MethodParameter
@@ -27,12 +29,12 @@ class WebRequestConfig: HandlerMethodArgumentResolver {
         if (parameter.hasParameterAnnotation(PGMKeyRequest::class.java)) {
             webRequest.getParameter(Objects.requireNonNull(parameter.parameterName))?.let {
                 if (!PGMList.isValidPGMType(it)) {
-                    // TODO Exception
+                    throw CustomException(ErrorCode.NotSupportedPGMKeyRequest, it)
                 }
 
                 return it
             } ?: run {
-                // TODO Exception
+                throw CustomException(ErrorCode.PGMKeyRequired)
             }
         }
 
