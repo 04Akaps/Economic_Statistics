@@ -9,10 +9,15 @@ import org.economic.statistics.types.const.PGMList
 
 @Component
 class PGMMapper(
-    pgmService: PGMService
+    pgmServices: List<PGMService>
 ) {
 
-    private val confirmPay: Map<String, (String) -> Any> = PGMList.pgmList.keys.associateWith { pgmService::confirmPay }
+    private val confirmPay: Map<String, (String) -> Any> = pgmServices
+        .filter { PGMList.isValidPGMType(it.getPGMKey()) }
+        .associateBy(
+            keySelector = { it.getPGMKey().lowercase() },
+            valueTransform = { it::confirmPay }
+        )
 
     fun <T> executeConfirmPay(pgm: String, body: String): T {
         val lowerPgm = pgm.lowercase()

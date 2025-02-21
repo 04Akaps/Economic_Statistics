@@ -11,6 +11,7 @@ import org.economic.statistics.custom.interfaces.PGMService
 import org.economic.statistics.domains.PGM.model.ConfirmRequestMapper
 import org.economic.statistics.domains.PGM.types.ConfirmBody
 import org.economic.statistics.domains.PGM.types.PaymentRequest
+import org.economic.statistics.types.const.TOSS
 import org.economic.statistics.types.const.TossPGMPath
 import org.economic.statistics.types.global.GlobalResponse
 import org.economic.statistics.types.global.Result
@@ -48,10 +49,12 @@ class TossPGMService(
 
         client.POST(TossPGMPath.CONFIRM_URL, headers, requestBody)
 
-        // TODO -> 실패 케이스에 대해서 히스토리 기록
+        // TODO -> 성공 케이스에 대해서 히스토리 기록
         // 결제 confirm 요청이기 떄문에, 성공 유무만 노출
         return@loggingStopWatch GlobalResponse.success("SUCCESS")
     }
+
+    override fun getPGMKey() : String = TOSS
 
     companion object {
         private val logger: Logger = Logging.getLogger(TossPGMService::class.java)
