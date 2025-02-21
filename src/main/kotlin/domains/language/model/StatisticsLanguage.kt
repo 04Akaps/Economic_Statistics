@@ -41,12 +41,3 @@ data class WordDetail(
     @SerialName("CONTENT")
     val content: String
 )
-
-
-data class StatisticsLanguageResponse(
-    @SerialName("message")
-    val message : String,
-
-    @SerialName("word")
-    val word : String
-)
