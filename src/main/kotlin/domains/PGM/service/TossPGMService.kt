@@ -7,6 +7,7 @@ import org.economic.statistics.common.exception.ErrorCode
 import org.economic.statistics.common.httpClient.Client
 import org.economic.statistics.common.json.JsonUtil
 import org.economic.statistics.common.logger.Logging
+import org.economic.statistics.custom.interfaces.PGMService
 import org.economic.statistics.domains.PGM.model.ConfirmRequestMapper
 import org.economic.statistics.domains.PGM.types.ConfirmBody
 import org.economic.statistics.domains.PGM.types.PaymentRequest
@@ -22,8 +23,8 @@ import java.nio.charset.StandardCharsets
 class TossPGMService(
     private val client: Client,
     private val config : TossPGM,
-) {
-    fun paymentRequest(requestBody: String) : Result<String> = Logging.loggingStopWatch(logger) {
+) : PGMService {
+    override fun confirmPay(requestBody: String) : Result<String> = Logging.loggingStopWatch(logger) {
         val request: PaymentRequest
 
         try {
