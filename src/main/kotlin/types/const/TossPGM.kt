@@ -1,5 +1,6 @@
 package org.economic.statistics.types.const
 
+const val TEST = "test"
 const val TOSS = "toss"
 
 object TossPGMPath {
