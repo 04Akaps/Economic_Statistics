@@ -22,6 +22,12 @@ class PGMMapper(
             valueTransform = { service -> { body -> service.confirmPay(body) } }
         )
 
+    private val requestPay : Map<String, (String) -> Result<String>> = pgmServices
+        .associateBy(
+            keySelector = { it.getPGMKey().lowercase() },
+            valueTransform = { service -> { body -> service.requestPay(body) } }
+        )
+
     fun executeConfirmPay(pgm: String, body: String): Result<String> {
         val lowerPgm = pgm.lowercase()
 
@@ -31,6 +37,19 @@ class PGMMapper(
 
 
         val func = confirmPay[lowerPgm]
+            ?: throw CustomException(ErrorCode.NotSupportedPGMKeyRequest)
+
+        return func.invoke(body)
+    }
+
+    fun executePayment(pgm: String, body: String): Result<String> {
+        val lowerPgm = pgm.lowercase()
+
+        if (!PGMList.isValidPGMType(lowerPgm)) {
+            throw CustomException(ErrorCode.InvalidFunctionPGMKeyMapper)
+        }
+
+        val func = requestPay[lowerPgm]
             ?: throw CustomException(ErrorCode.NotSupportedPGMKeyRequest)
 
         return func.invoke(body)

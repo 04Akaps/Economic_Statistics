@@ -13,6 +13,13 @@ data class PaymentRequest(
     val customerName: String? = null
 )
 
+@Serializable
+data class PayRequest(
+    val amount: Int,
+    val orderId: String,
+    val orderName: String? = null,
+)
+
 
 @Serializable
 data class ConfirmBody(

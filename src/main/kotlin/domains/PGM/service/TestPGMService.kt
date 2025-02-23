@@ -13,5 +13,9 @@ class TestPGMService() : PGMService {
         return GlobalResponse.success("success")
     }
 
+    override fun requestPay(requestBody: String) : Result<String> {
+        return GlobalResponse.success("success")
+    }
+
     override fun getPGMKey() : String = TEST
 }
